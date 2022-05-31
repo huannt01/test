@@ -15,7 +15,8 @@ use Cart;
 class CartController extends Controller
 {
     public function AddToCart($id) {
-        $product = $id;
+
+        $product = Product::where('id', $id)->first();
 
         if (!$product->discount_price) {
             Cart::add([
