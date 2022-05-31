@@ -11,7 +11,7 @@ use Auth;
 class WishlistController extends Controller
 {
     public function AddToWishlist($id) {
-        $user_id = $id;
+        $user_id = Auth::id();
         if(Auth::check()) {
             $check = Wishlist::where('user_id', $user_id)->where('product_id', $id)->first();
             if (!$check) {
