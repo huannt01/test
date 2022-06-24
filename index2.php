@@ -15,6 +15,7 @@ use Cart;
 class CartController extends Controller
 {
     public function AddToCart($id) {
+
         $product = Product::where('id', $id)->first();
 
         if (!$product->discount_price) {
@@ -57,7 +58,7 @@ class CartController extends Controller
 
     public function Check() {
         $content = Cart::content();
-
+        $delete = Cart::remove($rowId);
         return response()->json($content);
     }
 
