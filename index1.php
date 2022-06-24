@@ -13,8 +13,8 @@ use Auth;
 
 class PaymentController extends Controller
 {
-    public function PaymenProcess(Request $request) {
-        sdjkfahjadkslfhadsl
+    public function PaymenProcess(Request $request)
+    {
         $setting = Setting::first();
         $carts = Cart::content();
         $data = [
@@ -29,31 +29,30 @@ class PaymentController extends Controller
         if ($request->payment == 'stripe') {
             return view('frontend.payment.stripe', compact('data', 'setting', 'carts'));
         } else if ($request->payment == 'paypal') {
-
         } else if ($request->payment == 'ideal') {
-            
         } else {
             echo "Cash on Delivery";
         }
     }
 
-    public function StripeCharge(Request $request) {
+    public function StripeCharge(Request $request)
+    {
         $total = $request->total;
         // Set your secret key: remember to change this to your live secret key in production
-		// See your keys here: https://dashboard.stripe.com/account/apikeys
-		\Stripe\Stripe::setApiKey('sk_test_51L45wOBXg7TO1vQnR4eMR5VqmqQIiYLOdrLhvhIuSX0v91etTBVHWC4iZP8oSAEbXfebZZkCE7ZyAmQcp16qIIl100N9H0fCwD');
+        // See your keys here: https://dashboard.stripe.com/account/apikeys
+        \Stripe\Stripe::setApiKey('sk_test_51L45wOBXg7TO1vQnR4eMR5VqmqQIiYLOdrLhvhIuSX0v91etTBVHWC4iZP8oSAEbXfebZZkCE7ZyAmQcp16qIIl100N9H0fCwD');
 
-		// Token is created using Checkout or Elements!
-		// Get the payment token ID submitted by the form:
-		$token = $_POST['stripeToken'];
+        // Token is created using Checkout or Elements!
+        // Get the payment token ID submitted by the form:
+        $token = $_POST['stripeToken'];
 
-		$charge = \Stripe\Charge::create([
-		    'amount' => $total*100,
-		    'currency' => 'usd',
-		    'description' => 'Udemy Ecommerce Details dsadas',
-		    'source' => $token,
-		    'metadata' => ['order_id' => uniqid()],
-		]);
+        $charge = \Stripe\Charge::create([
+            'amount' => $total * 100,
+            'currency' => 'usd',
+            'description' => 'Udemy Ecommerce Details dsadas',
+            'source' => $token,
+            'metadata' => ['order_id' => uniqid()],
+        ]);
 
         // if (Session::has('coupon')) {
         //     $subtotal = Session::get('coupon')[];
@@ -97,7 +96,7 @@ class PaymentController extends Controller
                 'size' => $item->options->size,
                 'qty' => $item->qty,
                 'singleprice' => $item->price,
-                'totalprice' => $item->price*$item->qty
+                'totalprice' => $item->price * $item->qty
             ];
             OrderDetail::insert($data);
         }
