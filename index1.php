@@ -14,6 +14,7 @@ use Auth;
 class PaymentController extends Controller
 {
     public function PaymenProcess(Request $request) {
+        jksdfjsdjhfdlsfsl
         $setting = Setting::first();
         $carts = Cart::content();
         $data = [
